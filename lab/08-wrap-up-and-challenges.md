@@ -1,6 +1,6 @@
 # Lab 08 — Wrap-up and Challenges
 
-**Time:** 4 min (+ homework)
+**Time:** 2 min recap (+ homework)
 
 ## The harness map (recap)
 Fill in from memory, then check against the lab:
@@ -11,11 +11,11 @@ Fill in from memory, then check against the lab:
 | Plan mode | Plan before code | 01 |
 | Permissions | allow/deny rules | 02 |
 | Hooks | Tests after every edit | 02 |
-| Skills | `add-user-story` | 03 |
+| Skills | `add-user-story` + a skills.sh skill | 03 |
 | MCP | Playwright browser | 04 |
 | Loops | Verification, `/loop`, headless script | 05 |
 | Subagents | `code-reviewer`, `qa-tester` | 06 |
-| Plugins | `taskboard-kit` | 07 |
+| Plugins | Installed `commit-commands`; built `taskboard-kit` | 07 |
 
 ```
 Better results = better harness:  context + rules + checks + tools + specialists

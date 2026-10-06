@@ -1,6 +1,6 @@
 # Lab 06 — Custom Agents (Subagents)
 
-**Time:** 12 min · **Theory:** [05 — Custom Agents](../theory/05-custom-agents.md)
+**Time:** 10 min · **Theory:** [05 — Custom Agents](../theory/05-custom-agents.md)
 
 ## Goal
 Create two specialists — a read-only **code reviewer** and a **QA tester** — and see delegation and context isolation in action.

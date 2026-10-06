@@ -19,6 +19,7 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
 │   ├── 04-loops.md
 │   ├── 05-custom-agents.md
 │   ├── 06-plugins.md
+│   ├── 07-orchestration-and-loop-engineering.md   # bonus
 │   └── glossary-and-cheatsheet.md
 └── lab/                   # step-by-step hands-on
     ├── 00-setup.md
@@ -29,7 +30,8 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
     ├── 05-loops.md
     ├── 06-custom-agents.md
     ├── 07-plugins.md
-    └── 08-wrap-up-and-challenges.md
+    ├── 08-wrap-up-and-challenges.md
+    └── 09-bonus-orchestration.md   # bonus
 ```
 
 ## Prerequisites
@@ -48,10 +50,15 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
 | 35–50 | Skills: your own + skills.sh (HU3–HU4) | [03](lab/03-skills.md) | [03](theory/03-skills-and-mcp.md) |
 | 50–58 | MCP: give Claude a browser | [04](lab/04-mcp.md) | [03](theory/03-skills-and-mcp.md) |
 | 58–70 | Loops: goal loop (HU5–HU6), `/loop`; Part C is stretch | [05](lab/05-loops.md) | [04](theory/04-loops.md) |
-| 70–82 | Custom agents | [06](lab/06-custom-agents.md) | [05](theory/05-custom-agents.md) |
-| 82–90 | Plugins + wrap-up | [07](lab/07-plugins.md), [08](lab/08-wrap-up-and-challenges.md) | [06](theory/06-plugins.md) |
+| 70–80 | Custom agents | [06](lab/06-custom-agents.md) | [05](theory/05-custom-agents.md) |
+| 80–90 | Plugins (install + build) + wrap-up | [07](lab/07-plugins.md), [08](lab/08-wrap-up-and-challenges.md) | [06](theory/06-plugins.md) |
 
-Short on time? The headless script (lab 05, part C), and the MCP stretch items are optional. The plugin block can be an instructor demo.
+Short on time? The headless script (lab 05, part C), and the MCP stretch items are optional. In the plugins block, building your own plugin (Part B) can be an instructor demo.
+
+## Bonus (35–40 min, after the main lab)
+**[Lab 09 — Orchestration, loop engineering and an independent judge](lab/09-bonus-orchestration.md)** · Theory: [07](theory/07-orchestration-and-loop-engineering.md)
+
+Build one feature with a small team of agents: a contract first, `backend-dev` and `frontend-dev` working **in parallel**, tests locked so the builders can't cheat, a loop with a **budget and escalation rule**, and a read-only `verifier` that alone can say `APPROVED`. Stretch: compare against a badly designed loop, try worktree isolation.
 
 ## How each lab is written
 **Goal · Time · Theory link · Numbered steps with copy-paste prompts · Checkpoint · What to observe · If something fails.** Do not move on until the checkpoint boxes are ticked.

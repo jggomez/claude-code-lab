@@ -36,17 +36,22 @@ Plugin components are prefixed with the plugin name to avoid collisions:
 - Agent → `taskboard-kit:code-reviewer`
 
 ## Using a plugin
+**Install a community plugin** (the common case):
+```
+/plugin                                       # browse the Discover tab
+/plugin install commit-commands@claude-plugins-official
+/plugin marketplace add owner/repo            # add another marketplace first if needed
+```
+Choose a **scope** (user / project / local), review what it adds (skills, agents, hooks, MCP servers), and confirm with `/` — skills show as `/<plugin>:<skill>`. **A plugin runs code with your permissions: read before you install.**
+
 **Try locally (one session, nothing installed):**
 ```bash
 claude --plugin-dir ./taskboard-kit
 ```
 After editing files, run `/reload-plugins`.
 
-**Install from a marketplace:**
-```
-/plugin                       # browse, install, enable/disable, see errors
-/plugin install name@marketplace
-```
+**Manage plugins:** `/plugin` (Installed tab: enable, disable, update, uninstall) or `claude plugin list|install|uninstall` from your shell.
+
 A **marketplace** is just a catalog (a git repo with a marketplace file) listing plugins. Teams use a private one to distribute standard tooling.
 
 **Validate before sharing:**
