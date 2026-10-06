@@ -58,9 +58,28 @@ if [ $status -ne 0 ]; then
 fi
 exit 0
 ```
+**macOS / Linux / WSL / Git Bash:**
 ```bash
 chmod +x .claude/hooks/run-tests.sh
 ```
+
+**Windows (PowerShell or CMD):** `chmod` doesn't exist and isn't needed — Windows has no executable bit, and the hook runs the script through `bash`, so skip this step. You only need `bash` available on your PATH (it comes with [Git for Windows](https://git-scm.com/download/win); check with `bash --version`).
+
+> No bash on Windows? Use a Node.js version of the hook instead (Node is already a prerequisite). Create `.claude/hooks/run-tests.js`:
+> ```js
+> const { spawnSync } = require('node:child_process');
+> const fs = require('node:fs');
+>
+> if (!fs.existsSync('package.json') || !fs.existsSync('test')) process.exit(0);
+>
+> const r = spawnSync('npm', ['test', '--silent'], { encoding: 'utf8', shell: true });
+> if (r.status !== 0) {
+>   console.error('Tests failed after your last edit:');
+>   console.error(((r.stdout || '') + (r.stderr || '')).split('\n').slice(-30).join('\n'));
+>   process.exit(2);
+> }
+> ```
+> and register it with `"command": "node .claude/hooks/run-tests.js"` instead of the `bash` command below. It works on every OS.
 Register it in `.claude/settings.json` (merge with the permissions block):
 ```json
 {
@@ -104,7 +123,7 @@ Discuss: why is the hook still better? *(It always runs; the CLAUDE.md line is a
 Hooks are **deterministic** — the harness runs them, not the model. This is the foundation for everything automated later.
 
 ## If something fails
-- Hook never fires → check the JSON is valid, `matcher` is `Edit|Write`, script is executable, restart Claude.
+- Hook never fires → check the JSON is valid, `matcher` is `Edit|Write`, script is executable (macOS/Linux), `bash` is on your PATH (Windows), restart Claude.
 - Hook fires on a project with no tests → the guards (`[ -d test ] || exit 0`) skip it.
 
 **Next:** [Lab 03 — Skills](03-skills.md)
