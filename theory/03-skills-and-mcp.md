@@ -36,6 +36,14 @@ Useful optional frontmatter: `disable-model-invocation: true` (only you can run 
 
 Skills live in `.claude/skills/` (project, shared with the team) or `~/.claude/skills/` (personal).
 
+### Community skills: skills.sh
+[skills.sh](https://skills.sh) is an open directory of skills you can install with one command:
+```bash
+npx skills find <query>                                  # search
+npx skills add <owner/repo> --skill <name> -a claude-code # install
+```
+Skills are plain `SKILL.md` folders, so you can read exactly what you're installing. **They are third-party instructions that Claude follows with your permissions — read them first and prefer trusted publishers.**
+
 ### Skill vs. CLAUDE.md vs. subagent
 
 | Need | Use |

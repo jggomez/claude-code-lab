@@ -1,6 +1,6 @@
 # Lab 04 — MCP: Give Claude a Browser
 
-**Time:** 10 min · **Theory:** [03 — Skills and MCP](../theory/03-skills-and-mcp.md)
+**Time:** 8 min · **Theory:** [03 — Skills and MCP](../theory/03-skills-and-mcp.md)
 
 ## Goal
 Connect the Playwright MCP server so Claude can open the running app, interact with it and report what it sees.

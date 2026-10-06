@@ -3,7 +3,7 @@
 A 90-minute beginner lab for Claude Code. This repo contains **only Markdown**: no app code, no build, no tests. Learners build the TaskBoard app themselves following the lab.
 
 ## Layout
-- `README.md` — agenda and index
+- `README.md` — agenda and index (keep timings in sync with each lab's **Time**)
 - `theory/` — short readings, one per topic (`01`–`06` + glossary/cheatsheet)
 - `lab/` — numbered step-by-step labs (`00`–`08`)
 - `project-base/` — `spec.md` (user stories + API) and `stack.md` handed to learners

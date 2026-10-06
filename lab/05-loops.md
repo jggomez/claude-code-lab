@@ -1,6 +1,6 @@
 # Lab 05 — Loops
 
-**Time:** 13 min · **Theory:** [04 — Loops](../theory/04-loops.md)
+**Time:** 12 min · **Theory:** [04 — Loops](../theory/04-loops.md)
 
 ## Goal
 Use three kinds of loops: a verification loop, a recurring `/loop`, and a headless script loop with a hard cap.

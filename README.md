@@ -45,9 +45,9 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
 | 0–8 | Setup + intro | [00](lab/00-setup.md) | [01](theory/01-fundamentals.md) |
 | 8–25 | Basics: CLAUDE.md, plan mode, build HU1–HU2 | [01](lab/01-bases.md) | [01](theory/01-fundamentals.md) |
 | 25–35 | The harness: permissions and hooks | [02](lab/02-harness-hooks-permissions.md) | [02](theory/02-harness.md) |
-| 35–47 | Skills (HU3–HU4) | [03](lab/03-skills.md) | [03](theory/03-skills-and-mcp.md) |
-| 47–57 | MCP: give Claude a browser | [04](lab/04-mcp.md) | [03](theory/03-skills-and-mcp.md) |
-| 57–70 | Loops (HU5) | [05](lab/05-loops.md) | [04](theory/04-loops.md) |
+| 35–50 | Skills: your own + skills.sh (HU3–HU4) | [03](lab/03-skills.md) | [03](theory/03-skills-and-mcp.md) |
+| 50–58 | MCP: give Claude a browser | [04](lab/04-mcp.md) | [03](theory/03-skills-and-mcp.md) |
+| 58–70 | Loops (HU5) | [05](lab/05-loops.md) | [04](theory/04-loops.md) |
 | 70–82 | Custom agents | [06](lab/06-custom-agents.md) | [05](theory/05-custom-agents.md) |
 | 82–90 | Plugins + wrap-up | [07](lab/07-plugins.md), [08](lab/08-wrap-up-and-challenges.md) | [06](theory/06-plugins.md) |
 
