@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Node (if the TaskBoard app is built inside this folder)
+node_modules/
+npm-debug.log*
+
+# Env and secrets
+.env
+.env.*
+
+# Claude Code local files
+.claude/settings.local.json
+CLAUDE.local.md
