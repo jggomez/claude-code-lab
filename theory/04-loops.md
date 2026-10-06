@@ -8,7 +8,7 @@ A **loop** is when Claude repeats work until a condition is met, or repeats a ta
 
 | Loop | Trigger | Stops when | Use it to |
 |---|---|---|---|
-| **Goal loop** | One prompt with a definition of done | The check passes | Get a task finished without errors |
+| **Goal loop** (`/loop` with no interval, or a plain prompt) | One prompt with a definition of done | The check passes | Get a task finished without errors |
 | **`/loop`** | A timer | You stop it | Watch something (tests, a URL, a deploy) |
 | **Headless `claude -p`** | A script | Success or max attempts | Automate or run in CI |
 

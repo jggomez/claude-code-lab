@@ -9,8 +9,8 @@ Use three kinds of loops: a goal loop that runs until an objective is met, a rec
 
 | | What it does | You give it | It stops when |
 |---|---|---|---|
-| **A. Goal loop** | Keeps working **until an objective is met** (this is the "loop until it's done without errors" one) | A definition of done + a check | The check passes (or the attempt limit is hit) |
-| **B. `/loop`** | Re-runs a prompt **on a timer** (a watchdog) | An interval + a prompt | You stop it |
+| **A. Goal loop** (with `/loop`, no interval) | Keeps working **until an objective is met** (this is the "loop until it's done without errors" one) | A definition of done + a check | The check passes (or the attempt limit is hit) |
+| **B. `/loop 1m ...`** (fixed interval) | Re-runs a prompt **on a timer** (a watchdog) | An interval + a prompt | You stop it |
 | **C. Headless script** | A script that calls `claude -p` repeatedly | A script with a cap | Success or max attempts |
 
 Part A is the main exercise. B and C are variations.
@@ -32,19 +32,23 @@ Then run npm test and show me that they fail.
 ```
 Checkpoint: you see **red** — new tests failing because the feature doesn't exist. That failing suite is your objective.
 
-### 3. Give the objective and let it loop
-Paste this and **don't interrupt**:
+### 3. Give the objective and run it with `/loop`
+Use `/loop` **without an interval**: Claude paces itself, keeps coming back to the task, and ends the loop on its own when the goal is met. Paste this and **don't interrupt**:
 ```
-Goal: HU5 and HU6 fully working. You are done ONLY when ALL of these are true:
+/loop Goal: HU5 and HU6 fully working. You are done ONLY when ALL of these are true:
 1. `npm test` passes with 0 failures (do not edit or delete the tests I just wrote).
 2. Using the browser tools on http://localhost:3000: the All / Pending / Done buttons filter correctly, priority badges show, and the "N pending" counter updates after adding, completing and deleting a task.
 3. The browser console has no errors.
 
-Work in a loop: implement → run npm test → if anything fails, read the error, fix the code, run it again → then verify in the browser. Repeat until 1, 2 and 3 are all true.
-If you are still failing after 8 iterations, stop and tell me exactly what is blocking you.
-At the end, report each condition with its evidence.
+Each iteration: implement or fix → run npm test → if anything fails, read the error and fix it → then verify in the browser. Keep iterating until 1, 2 and 3 are all true.
+When all three are true, STOP the loop and report each condition with its evidence.
+If you are still failing after 8 iterations, stop the loop and tell me exactly what is blocking you.
 ```
-Watch it work. Count the loops: each time it runs `npm test`, reads a failure and edits again is **one iteration**. Your Lab 02 hook also runs the tests after every edit.
+Watch it work. Count the iterations: each pass of *edit → `npm test` → read failure → edit again* is one. Your Lab 02 hook also runs the tests after every edit.
+
+> **Why `/loop` here?** The loop itself is the mechanism that keeps Claude working until the objective is true, and it ends the moment the objective is met. A fixed interval (`/loop 2m ...`) is for watching, see Part B.
+>
+> **No `/loop` in your version?** Send the same text without `/loop`. A single prompt also iterates (implement → test → fix) until the conditions hold.
 
 ### 4. Verify it wasn't cheating
 ```
@@ -59,7 +63,7 @@ The tests you wrote in step 2 must be unchanged. Open the app yourself and try t
 
 ### Checkpoint for Part A
 - [ ] You saw red tests before any implementation
-- [ ] Claude iterated several times on its own until `npm test` was green
+- [ ] Claude iterated several times on its own (via `/loop`) until `npm test` was green, then ended the loop itself
 - [ ] It verified the UI in the browser and reported evidence for each condition
 - [ ] The tests from step 2 were not modified
 - [ ] You can name the 3 ingredients: **verifiable goal, stop condition, fast check**
