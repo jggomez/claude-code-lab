@@ -1,6 +1,6 @@
 # Lab 05 — Loops
 
-**Time:** 12 min · **Theory:** [04 — Loops](../theory/04-loops.md)
+**Time:** 9 min (Parts A+B) + 6 min stretch (Part C) · **Theory:** [04 — Loops](../theory/04-loops.md)
 
 ## Goal
 Use three kinds of loops: a verification loop, a recurring `/loop`, and a headless script loop with a hard cap.
@@ -73,12 +73,32 @@ If it keeps firing, press `Esc` and repeat, or run `/clear`, or exit Claude with
 
 > `/loop` only lives as long as your session is open. For jobs that must run when your laptop is closed, you'd use a scheduled cloud routine (`/schedule`) instead — not part of this lab.
 
-## Part C — Headless loop (3 min, stretch if short on time)
+## Part C — Headless loop (6 min, stretch if short on time)
 
-Make sure the Part B loop is stopped first.
+**Idea:** `claude -p "prompt"` runs Claude **without opening the chat**: it does the task, prints the result and exits. That lets a normal script call Claude, check if the tests pass, and call it again — a loop *you* control, with a hard cap on attempts.
 
-### 1. A script with a hard cap
-Create `fix-until-green.sh`:
+Do this in a **regular terminal** (not inside the `claude` chat), in the `taskboard/` folder. Make sure the Part B loop is stopped.
+
+```
+ script ──► npm test ──► green? ──yes──► done
+              │ no
+              ▼
+        claude -p "fix it"   (fresh context each time)
+              │
+              └──► repeat, max 5 attempts
+```
+
+### 1. Create the script file
+The file lives in the **root of the project**, next to `package.json`:
+```
+taskboard/
+├── package.json
+├── fix-until-green.sh     ← new file (or fix-until-green.js on Windows)
+├── src/
+└── test/
+```
+Create it with your editor (**File → New File → save as `fix-until-green.sh`** in `taskboard/`), or from the terminal. Paste this content:
+
 ```bash
 #!/usr/bin/env bash
 MAX=5
@@ -93,29 +113,73 @@ for i in $(seq 1 $MAX); do
 done
 echo "Still failing after $MAX attempts"; exit 1
 ```
+
+What each part does:
+| Line | Meaning |
+|---|---|
+| `MAX=5` | Hard cap: never more than 5 attempts |
+| `for i in $(seq 1 $MAX)` | Repeat up to 5 times |
+| `if npm test --silent; then ... exit 0` | If tests pass, stop with success |
+| `claude -p "..."` | Otherwise ask Claude (headless) to fix the code |
+| `--max-turns 8` | Claude may take at most 8 steps per attempt |
+| `--allowedTools "Read,Edit,Bash(npm test)"` | Claude may only read, edit and run `npm test` — nothing else, so no permission prompts |
+| last two lines | Reached after 5 failed attempts: give up |
+
+### 2. Make it executable (macOS / Linux / WSL / Git Bash)
 ```bash
 chmod +x fix-until-green.sh
 ```
+On Windows you can skip this and run `bash fix-until-green.sh`.
 
-### 2. Break and heal
-Introduce a bug in `src/tasks.js` yourself, then run `./fix-until-green.sh`.
+> **Windows without bash?** Use the Node.js version instead. Create `fix-until-green.js` in the same place:
+> ```js
+> const { spawnSync } = require('node:child_process');
+> const MAX = 5;
+> for (let i = 1; i <= MAX; i++) {
+>   console.log(`== attempt ${i}/${MAX} ==`);
+>   if (spawnSync('npm', ['test', '--silent'], { stdio: 'inherit', shell: true }).status === 0) {
+>     console.log(`Green on attempt ${i}`);
+>     process.exit(0);
+>   }
+>   spawnSync('claude', ['-p', 'npm test is failing. Fix the application code, NOT the tests. Keep changes minimal.',
+>     '--max-turns', '8', '--allowedTools', 'Read,Edit,Bash(npm test)'], { stdio: 'inherit', shell: true });
+> }
+> console.log(`Still failing after ${MAX} attempts`);
+> process.exit(1);
+> ```
+> Run it with `node fix-until-green.js`.
 
-### 3. Review what it did
+### 3. Break the code on purpose
+Open `src/tasks.js` and introduce a bug that your tests catch — for example, make the new task's `done` start as `true` instead of `false`. Save it. Check it fails:
+```bash
+npm test
 ```
-!git diff
-```
-Did it fix the code or weaken a test? **Always review.**
+(You should see a failing test. If not, pick a different bug.)
 
-### 4. Commit
+### 4. Run the script
+```bash
+./fix-until-green.sh          # macOS / Linux / WSL / Git Bash
+bash fix-until-green.sh       # Windows with Git Bash
+node fix-until-green.js       # Node version, any OS
 ```
-!git add -A && git commit -m "HU5 + loops"
+Expected output: `== attempt 1/5 ==` with a failing test → Claude works for a while → `== attempt 2/5 ==` → `Green on attempt 2`. The script stops by itself.
+
+### 5. Review what it did
+```bash
+git diff
+```
+Did Claude fix the code, or weaken a test? **Always review** — a loop that "passes" can still be wrong.
+
+### 6. Commit (and don't commit the helper script unless you want to)
+```bash
+git add -A && git commit -m "HU5 + loops"
 ```
 
 ## Checkpoint
 - [ ] HU5 works in the browser and `npm test` is green
 - [ ] You saw Claude iterate on a failing test by itself
 - [ ] `/loop` reported a failure you introduced
-- [ ] The script stopped by itself (success or after 5 attempts)
+- [ ] The script file exists in the project root and stopped by itself (success or after 5 attempts)
 
 ## What to observe
 - Loops converge only with an **objective check** and a **stop condition**.
@@ -126,6 +190,9 @@ Did it fix the code or weaken a test? **Always review.**
 - `/loop` not found → update Claude Code; as a fallback, use the shell loop in Part C.
 - Loop never reports → did you save the file? Is `npm test` actually failing? Wait a full interval; use `1m` for the lab.
 - Loop reports every minute even when green → rewrite the prompt: `...and say nothing if all tests pass`.
+- `claude: command not found` inside the script → run it from a terminal where `claude` works.
+- `./fix-until-green.sh: Permission denied` → run `chmod +x fix-until-green.sh`, or use `bash fix-until-green.sh`.
+- Script says `Green on attempt 1` immediately → your bug isn't caught by the tests; pick another one.
 - Headless run asks for permissions → add the needed tool to `--allowedTools`.
 - Script weakens tests → tighten the prompt, or add a `deny` rule for `Edit(test/**)`.
 
