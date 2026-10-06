@@ -76,6 +76,12 @@ npx skills add vercel-labs/agent-skills --skill web-design-guidelines -a claude-
 - `-a claude-code` targets Claude Code; `-y` skips confirmations.
 - Without flags the CLI asks interactively, and you can choose project vs. global install.
 
+> **Symlink or Copy?** The CLI may ask how to install the skill:
+> - **Symlink** — the skill is stored once in a central folder and `.claude/skills/<name>` is just a link to it. One source of truth, updates reach every place it's linked, and several agents (Claude Code, Cursor…) can share it. On Windows, symlinks can fail without Developer Mode or admin rights.
+> - **Copy** — the files are copied into `.claude/skills/<name>`. Independent per project, easy to read and edit, and it gets committed with your repo. Updates don't arrive automatically.
+>
+> **For this lab choose Copy**: you can open the `SKILL.md` right inside your project (step 6) and it works on every OS. If the prompt doesn't appear, check what was created with `ls -la .claude/skills/` (an arrow `->` means it's a symlink).
+
 Restart `claude` and type `/` — the new skill should be listed next to `add-user-story`. Look at the folder the CLI created under `.claude/skills/` and read the files.
 
 > Other options to try: a `frontend-design` skill for better-looking UIs, or a `tdd` / `code-review` skill for the backend. Check `npx skills --help` if flags differ in your version.
