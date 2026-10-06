@@ -1,25 +1,70 @@
 # Lab 05 — Loops
 
-**Time:** 9 min (Parts A+B) + 6 min stretch (Part C) · **Theory:** [04 — Loops](../theory/04-loops.md)
+**Time:** 17 min (Part A 8 + Part B 5) + 6 min stretch (Part C) · **Theory:** [04 — Loops](../theory/04-loops.md)
 
 ## Goal
-Use three kinds of loops: a verification loop, a recurring `/loop`, and a headless script loop with a hard cap.
+Use three kinds of loops: a goal loop that runs until an objective is met, a recurring `/loop` watchdog, and a headless script loop with a hard cap.
 
-## Part A — Verification loop (4 min)
+## Three kinds of loop — don't mix them up
 
-### 1. Write the goal with a check and a stop condition
-```
-Implement HU5 (filter All / Pending / Done) from docs/spec.md.
-Add tests for GET /api/tasks?status=pending|done first.
-Run `npm test` after every change and keep iterating until all tests pass.
-If you are still failing after 5 attempts, stop and tell me what's blocking you.
-```
-Watch the loop: *edit → test → read failure → edit …* until green.
+| | What it does | You give it | It stops when |
+|---|---|---|---|
+| **A. Goal loop** | Keeps working **until an objective is met** (this is the "loop until it's done without errors" one) | A definition of done + a check | The check passes (or the attempt limit is hit) |
+| **B. `/loop`** | Re-runs a prompt **on a timer** (a watchdog) | An interval + a prompt | You stop it |
+| **C. Headless script** | A script that calls `claude -p` repeatedly | A script with a cap | Success or max attempts |
 
-### 2. Close the loop with the browser
+Part A is the main exercise. B and C are variations.
+
+## Part A — Goal loop: "don't stop until everything passes" (8 min)
+
+**Idea:** you don't tell Claude *how*, you tell it **what "done" means** and how to check it. Claude then loops by itself — implement → check → read errors → fix → check again — and only stops when every check passes. The loop is only as good as its **objective check** and its **stop condition**.
+
+### 1. Prepare: let it run without asking every step
+In the Claude prompt press **Shift+Tab** until the mode shows *accept edits*. Otherwise Claude pauses for approval on each edit and the loop keeps stopping. (The permission rules from Lab 02 already allow `npm test`.)
+
+Make sure the app is running in another terminal (`npm start`) and the Playwright MCP from Lab 04 is connected (`/mcp`).
+
+### 2. Red first: write the tests that define "done"
 ```
-Now use the browser tools to verify the three filter buttons on http://localhost:3000, including that the filter persists after adding a task. Fix anything that fails.
+Read HU5 and HU6 in docs/spec.md. Do NOT implement anything yet.
+Write tests in test/ for every acceptance criterion of HU5 (filtering) and HU6 (priority + pending counter).
+Then run npm test and show me that they fail.
 ```
+Checkpoint: you see **red** — new tests failing because the feature doesn't exist. That failing suite is your objective.
+
+### 3. Give the objective and let it loop
+Paste this and **don't interrupt**:
+```
+Goal: HU5 and HU6 fully working. You are done ONLY when ALL of these are true:
+1. `npm test` passes with 0 failures (do not edit or delete the tests I just wrote).
+2. Using the browser tools on http://localhost:3000: the All / Pending / Done buttons filter correctly, priority badges show, and the "N pending" counter updates after adding, completing and deleting a task.
+3. The browser console has no errors.
+
+Work in a loop: implement → run npm test → if anything fails, read the error, fix the code, run it again → then verify in the browser. Repeat until 1, 2 and 3 are all true.
+If you are still failing after 8 iterations, stop and tell me exactly what is blocking you.
+At the end, report each condition with its evidence.
+```
+Watch it work. Count the loops: each time it runs `npm test`, reads a failure and edits again is **one iteration**. Your Lab 02 hook also runs the tests after every edit.
+
+### 4. Verify it wasn't cheating
+```
+!git diff --stat test/
+```
+The tests you wrote in step 2 must be unchanged. Open the app yourself and try the filters.
+
+### 5. Reflect
+- What made Claude stop? *(All three conditions true — an objective check, not a feeling.)*
+- What would have happened with "make the filters work" and no definition of done? *(It would stop at the first plausible-looking result.)*
+- Why did we write tests first? *(They turn a vague goal into something the loop can verify.)*
+
+### Checkpoint for Part A
+- [ ] You saw red tests before any implementation
+- [ ] Claude iterated several times on its own until `npm test` was green
+- [ ] It verified the UI in the browser and reported evidence for each condition
+- [ ] The tests from step 2 were not modified
+- [ ] You can name the 3 ingredients: **verifiable goal, stop condition, fast check**
+
+> **Stretch:** add a 4th condition (e.g. "no failing request in the browser network log") and run again.
 
 ## Part B — Recurring loop with `/loop` (5 min)
 

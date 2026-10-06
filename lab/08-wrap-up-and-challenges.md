@@ -30,7 +30,7 @@ Better results = better harness:  context + rules + checks + tools + specialists
 6. **Review diffs**. You own the result.
 
 ## Challenges
-1. **HU6** — Implement priority + pending counter using only your skill, plan mode and the subagents.
+1. **New story, goal loop** — Use `/add-user-story` to write a new story (e.g. inline edit), write its tests first, then run a goal loop with a definition of done until everything is green.
 2. **Block secrets** — Write a `PreToolUse` hook that blocks edits to `.env` (exit code 2 with a message).
 3. **Commit skill** — Create a `/commit` skill that writes Conventional Commit messages from `git diff`.
 4. **Parallel review** — Add a `security-reviewer` subagent and run it in parallel with `code-reviewer`.

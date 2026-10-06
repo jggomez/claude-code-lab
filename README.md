@@ -47,11 +47,11 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
 | 25–35 | The harness: permissions and hooks | [02](lab/02-harness-hooks-permissions.md) | [02](theory/02-harness.md) |
 | 35–50 | Skills: your own + skills.sh (HU3–HU4) | [03](lab/03-skills.md) | [03](theory/03-skills-and-mcp.md) |
 | 50–58 | MCP: give Claude a browser | [04](lab/04-mcp.md) | [03](theory/03-skills-and-mcp.md) |
-| 58–70 | Loops (HU5); Part C is stretch | [05](lab/05-loops.md) | [04](theory/04-loops.md) |
+| 58–70 | Loops: goal loop (HU5–HU6), `/loop`; Part C is stretch | [05](lab/05-loops.md) | [04](theory/04-loops.md) |
 | 70–82 | Custom agents | [06](lab/06-custom-agents.md) | [05](theory/05-custom-agents.md) |
 | 82–90 | Plugins + wrap-up | [07](lab/07-plugins.md), [08](lab/08-wrap-up-and-challenges.md) | [06](theory/06-plugins.md) |
 
-Short on time? HU6, the headless script (lab 05, part C), and the MCP stretch items are optional. The plugin block can be an instructor demo.
+Short on time? The headless script (lab 05, part C), and the MCP stretch items are optional. The plugin block can be an instructor demo.
 
 ## How each lab is written
 **Goal · Time · Theory link · Numbered steps with copy-paste prompts · Checkpoint · What to observe · If something fails.** Do not move on until the checkpoint boxes are ticked.

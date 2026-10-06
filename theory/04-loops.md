@@ -4,8 +4,16 @@
 
 A **loop** is when Claude repeats work until a condition is met, or repeats a task on a schedule. There are three kinds.
 
-## 1. The verification loop (inside one prompt)
-The agentic loop already iterates. You make it **converge** by giving it an objective check:
+## Which loop?
+
+| Loop | Trigger | Stops when | Use it to |
+|---|---|---|---|
+| **Goal loop** | One prompt with a definition of done | The check passes | Get a task finished without errors |
+| **`/loop`** | A timer | You stop it | Watch something (tests, a URL, a deploy) |
+| **Headless `claude -p`** | A script | Success or max attempts | Automate or run in CI |
+
+## 1. The goal loop (inside one prompt)
+The agentic loop already iterates. You make it **converge** by giving it a *definition of done* and an objective check (ideally tests written first, so they start red):
 
 ```
 Implement HU5. Run `npm test` after every change and keep going until all tests pass.
