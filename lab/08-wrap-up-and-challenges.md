@@ -49,4 +49,4 @@ Better results = better harness:  context + rules + checks + tools + specialists
 ## Feedback
 What was the most useful piece? What would you automate first in your own project?
 
-**Back to:** [README](../README.md)
+**Next:** [Lab 09 (Bonus) — Orchestration and Loop Engineering](09-bonus-orchestration.md) · [Lab 10 (Bonus) — Spec-Driven Development with Conductor](10-bonus-sdd-conductor.md) · **Back to:** [README](../README.md)

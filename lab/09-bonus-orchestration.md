@@ -199,4 +199,4 @@ Remove the temporary guardrail (delete the `deny` rules from `.claude/settings.l
 - Agents aren't found → files must be in `.claude/agents/`; restart `claude`.
 - Frontmatter fields differ in your version → check `/agents` and the docs.
 
-**Back to:** [README](../README.md)
+**Next:** [Lab 10 (Bonus) — Spec-Driven Development with Conductor](10-bonus-sdd-conductor.md) · **Back to:** [README](../README.md)

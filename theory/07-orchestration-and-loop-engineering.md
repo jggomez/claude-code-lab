@@ -71,4 +71,4 @@ After a run, record: rounds, agents used, rough cost (`/context`, usage), whethe
 - Why can't the implementer be the final judge?
 - What is the escalation rule for?
 
-**Back to:** [README](../README.md)
+**Next:** [08 — Spec-Driven Development (Bonus)](08-spec-driven-development.md) · **Back to:** [README](../README.md)

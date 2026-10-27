@@ -20,6 +20,7 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
 │   ├── 05-custom-agents.md
 │   ├── 06-plugins.md
 │   ├── 07-orchestration-and-loop-engineering.md   # bonus
+│   ├── 08-spec-driven-development.md             # bonus
 │   └── glossary-and-cheatsheet.md
 └── lab/                   # step-by-step hands-on
     ├── 00-setup.md
@@ -31,7 +32,8 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
     ├── 06-custom-agents.md
     ├── 07-plugins.md
     ├── 08-wrap-up-and-challenges.md
-    └── 09-bonus-orchestration.md   # bonus
+    ├── 09-bonus-orchestration.md   # bonus
+    └── 10-bonus-sdd-conductor.md   # bonus
 ```
 
 ## Prerequisites
@@ -55,10 +57,15 @@ Learn Claude Code by building **TaskBoard**, a tiny web app (HTML + Tailwind + v
 
 Short on time? The headless script (lab 05, part C), and the MCP stretch items are optional. In the plugins block, building your own plugin (Part B) can be an instructor demo.
 
-## Bonus (35–40 min, after the main lab)
-**[Lab 09 — Orchestration, loop engineering and an independent judge](lab/09-bonus-orchestration.md)** · Theory: [07](theory/07-orchestration-and-loop-engineering.md)
+## Bonuses (after the main lab)
+
+**[Lab 09 — Orchestration, loop engineering and an independent judge](lab/09-bonus-orchestration.md)** (35–40 min) · Theory: [07](theory/07-orchestration-and-loop-engineering.md)
 
 Build one feature with a small team of agents: a contract first, `backend-dev` and `frontend-dev` working **in parallel**, tests locked so the builders can't cheat, a loop with a **budget and escalation rule**, and a read-only `verifier` that alone can say `APPROVED`. Stretch: compare against a badly designed loop, try worktree isolation.
+
+**[Lab 10 — Spec-Driven Development with Conductor](lab/10-bonus-sdd-conductor.md)** (15–20 min) · Theory: [08](theory/08-spec-driven-development.md)
+
+Practice **Spec-Driven Development (SDD)** with Google's **Conductor** plugin. Transform Claude Code into an architectural project manager: scaffold project context (`/conductor:conductor-setup`), plan features into verifiable tracks with specifications and atomic phases (`/conductor:conductor-new-track`), and execute tasks deterministically (`/conductor:conductor-implement`).
 
 ## How each lab is written
 **Goal · Time · Theory link · Numbered steps with copy-paste prompts · Checkpoint · What to observe · If something fails.** Do not move on until the checkpoint boxes are ticked.
